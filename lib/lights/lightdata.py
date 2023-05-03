@@ -13,7 +13,7 @@ class LightData(HomeData):
     @path.setter
     def path(self, value: Path):
         if isinstance(value, Path):
-            value.parent.mkdir(parents=True)
+            value.parent.mkdir(parents=True, exist_ok=True)
             self._path = value
         else:
             raise TypeError(value)
