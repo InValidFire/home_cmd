@@ -23,6 +23,7 @@ class HomeCMD:
         lights_parser.add_argument("--rename", 
             help="rename the light", default=None)
         lights_parser.add_argument("--scene", "-s", default=None, help="set the WiZ Scene")
+        lights_parser.add_argument("--raw", "-r", action="store_true", help="toggle raw output", default=False)
         lights_parser.add_argument("--list", help="list lights or scenes", default=None)
 
         # tv subcommand setup
@@ -51,14 +52,22 @@ class HomeCMD:
                 print("No lights found on the network.")
         if isinstance(args.list, str) and args.list.lower() == "lights":
             lights = handler.get_lights()
-            print("Lights: ")
-            for light in lights:
-                print("-", light.identifier)
+            if not args.raw:
+                print("Lights: ")
+                for light in lights:
+                    print("-", light.identifier)
+            else:
+                for light in lights:
+                    print(light.identifier)
         elif isinstance(args.list, str) and args.list.lower() == "scenes":
             scenes = handler.get_scenes()
-            print("Scenes: ")
-            for scene in scenes:
-                print("-", scene)
+            if not args.raw:
+                print("Scenes: ")
+                for scene in scenes:
+                    print("-", scene)
+            else:
+                for scene in scenes:
+                    print(scene)
 
         if args.toggle and args.light is None:
             event_loop.run_until_complete(handler.toggle_all())
