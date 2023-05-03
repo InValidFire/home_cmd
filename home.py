@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from argparse import ArgumentParser, Namespace
 import asyncio
 from lib.lights import LightHandler
