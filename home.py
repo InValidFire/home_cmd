@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from argparse import ArgumentParser, Namespace
-import asyncio
+import asyncio, sys
 from lib.lights import LightHandler
 from lib.tv.handler_tv import TVHandler
 
@@ -40,6 +40,10 @@ class HomeCMD:
         tv_parser.add_argument("--mute", action="store_true", help="mute the tv(s).")
 
         args = parser.parse_args()
+
+        if len(sys.argv) == 1:
+            parser.print_help()
+            sys.exit()
 
         args.func(args)
 
